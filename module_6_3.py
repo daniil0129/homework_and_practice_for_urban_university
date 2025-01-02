@@ -44,7 +44,7 @@ class AquaticAnimal(Animal):
     _DEGREE_OF_DANGER = 3
 
     def dive_in(self, dz):
-        dz = abs(dz)
+        dz = abs(dz)  # Берём модуль значения
         new_z = self._cords[2] - dz * (self.speed / 2)
         if new_z < 0:
             new_z = 0
@@ -53,21 +53,23 @@ class AquaticAnimal(Animal):
 class PoisonousAnimal(Animal):
     _DEGREE_OF_DANGER = 8
 
-class Duckbill(Bird, PoisonousAnimal, AquaticAnimal):
+class Duckbill(Bird, AquaticAnimal, PoisonousAnimal):
     sound = "Click-click-click"
+    _DEGREE_OF_DANGER = 8  # Явно указываем уровень опасности
 
+# Тестирование
 db = Duckbill(10)
 
-print(db.live)
-print(db.beak)
+print(db.live)       # True
+print(db.beak)       # True
 
-db.speak()
-db.attack()
+db.speak()           # Click-click-click
+db.attack()          # Be careful, I'm attacking you 0_0
 
 db.move(1, 2, 3)
-db.get_cords()
+db.get_cords()       # X: 10 Y: 20 Z: 30
 
 db.dive_in(6)
-db.get_cords()
+db.get_cords()       # X: 10 Y: 20 Z: 0
 
-db.lay_eggs()
+db.lay_eggs()        # Here are(is) <random number> eggs for you
